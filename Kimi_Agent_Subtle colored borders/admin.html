@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Administração - eurozuca.com</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --admin-primary: #00a651;
+            --admin-secondary: #d4af37;
+            --admin-accent: #003399;
+            --admin-bg: #f5f7fa;
+            --admin-card: #ffffff;
+            --admin-text: #1a1a1a;
+            --admin-muted: #6b7280;
+            --admin-border: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--admin-bg);
+            color: var(--admin-text);
+            line-height: 1.6;
+        }
+
+        /* Layout */
+        .admin-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
+            width: 280px;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .sidebar-header h1 i {
+            color: var(--admin-secondary);
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-menu a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .nav-menu a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 2rem;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--admin-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #008c44;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--admin-secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #b8960c;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--admin-border);
+            color: var(--admin-text);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--admin-primary);
+            color: var(--admin-primary);
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--admin-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group label span {
+            color: var(--admin-muted);
+            font-weight: 400;
+            font-size: 0.8rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--admin-border);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--admin-primary);
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        select.form-control {
+            cursor: pointer;
+        }
+
+        input[type="color"] {
+            height: 50px;
+            padding: 0.25rem;
+            cursor: pointer;
+        }
+
+        /* Color Picker Group */
+        .color-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .color-item {
+            text-align: center;
+        }
+
+        .color-item label {
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .color-preview {
+            width: 100%;
+            height: 40px;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            border: 1px solid var(--admin-border);
+        }
+
+        /* Grid Layout */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        /* Preview Panel */
+        .preview-panel {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            border-left: 1px solid var(--admin-border);
+            box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--admin-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .preview-frame {
+            flex: 1;
+            border: none;
+            width: 100%;
+        }
+
+        .preview-toggle {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--admin-primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 999;
+            transition: all 0.3s;
+        }
+
+        .preview-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--admin-border);
+            padding-bottom: 0.5rem;
+        }
+
+        .tab {
+            padding: 0.75rem 1.25rem;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--admin-muted);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            background: var(--admin-bg);
+            color: var(--admin-text);
+        }
+
+        .tab.active {
+            background: var(--admin-primary);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Template Cards */
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .template-card {
+            border: 2px solid var(--admin-border);
+            border-radius: 12px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .template-card:hover {
+            border-color: var(--admin-primary);
+            transform: translateY(-3px);
+        }
+
+        .template-card.selected {
+            border-color: var(--admin-primary);
+            background: rgba(0, 166, 81, 0.05);
+        }
+
+        .template-preview {
+            height: 120px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        /* Font Preview */
+        .font-preview {
+            padding: 1rem;
+            background: var(--admin-bg);
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1a1a2e;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 9999;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: var(--admin-primary);
+        }
+
+        .toast.error {
+            background: #ef4444;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Section Editor */
+        .section-editor {
+            border: 1px solid var(--admin-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-header-editor {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--admin-border);
+        }
+
+        .section-title-editor {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title-editor i {
+            color: var(--admin-primary);
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #ccc;
+            transition: 0.3s;
+            border-radius: 26px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background: var(--admin-primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Code Export */
+        .code-export {
+            background: #1a1a2e;
+            color: #a5b3ce;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .code-export pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-cog"></i> Painel Admin</h1>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#dashboard" class="active" onclick="showTab('dashboard')"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#cores" onclick="showTab('cores')"><i class="fas fa-palette"></i> Cores</a></li>
+                    <li><a href="#fontes" onclick="showTab('fontes')"><i class="fas fa-font"></i> Fontes</a></li>
+                    <li><a href="#templates" onclick="showTab('templates')"><i class="fas fa-layer-group"></i> Templates</a></li>
+                    <li><a href="#conteudo" onclick="showTab('conteudo')"><i class="fas fa-edit"></i> Conteúdo</a></li>
+                    <li><a href="#seo" onclick="showTab('seo')"><i class="fas fa-search"></i> SEO</a></li>
+                    <li><a href="#exportar" onclick="showTab('exportar')"><i class="fas fa-download"></i> Exportar</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard -->
+            <div id="dashboard" class="tab-content active">
+                <div class="page-header">
+                    <h2>Dashboard</h2>
+                    <div class="header-actions">
+                        <button class="btn btn-outline" onclick="resetConfig()"><i class="fas fa-undo"></i> Resetar</button>
+                        <button class="btn btn-primary" onclick="saveConfig()"><i class="fas fa-save"></i> Salvar</button>
+                    </div>
+                </div>
+
+                <div class="grid-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-palette" style="color: var(--admin-primary)"></i> Cores</h3>
+                        </div>
+                        <p style="color: var(--admin-muted); margin-bottom: 1rem;">Personalize as cores do seu site</p>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <div style="width: 30px; height: 30px; background: #00a651; border-radius: 6px;"></div>
+                            <div style="width: 30px; height: 30px; background: #d4af37; border-radius: 6px;"></div>
+                            <div style="width: 30px; height: 30px; background: #003399; border-radius: 6px;"></div>
+                        </div>
+                        <button class="btn btn-outline" style="margin-top: 1rem; width: 100%;" onclick="showTab('cores')">Editar Cores</button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-font" style="color: var(--admin-secondary)"></i> Fontes</h3>
+                        </div>
+                        <p style="color: var(--admin-muted); margin-bottom: 1rem;">Escolha as fontes do site</p>
+                        <p style="font-family: 'Inter', sans-serif; font-size: 1.1rem;">Inter + Space Grotesk</p>
+                        <button class="btn btn-outline" style="margin-top: 1rem; width: 100%;" onclick="showTab('fontes')">Editar Fontes</button>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-layer-group" style="color: var(--admin-accent)"></i> Template</h3>
+                        </div>
+                        <p style="color: var(--admin-muted); margin-bottom: 1rem;">Layout atual do site</p>
+                        <p><strong>Template Padrão</strong></p>
+                        <button class="btn btn-outline" style="margin-top: 1rem; width: 100%;" onclick="showTab('templates')">Mudar Template</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Pré-visualização Rápida</h3>
+                        <button class="btn btn-primary" onclick="openPreview()"><i class="fas fa-eye"></i> Ver Site</button>
+                    </div>
+                    <div style="background: #f5f5f5; border-radius: 12px; height: 300px; display: flex; align-items: center; justify-content: center;">
+                        <p style="color: var(--admin-muted);">Clique em "Ver Site" para pré-visualizar</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cores -->
+            <div id="cores" class="tab-content">
+                <div class="page-header">
+                    <h2>Cores do Site</h2>
+                    <button class="btn btn-primary" onclick="saveConfig()"><i class="fas fa-save"></i> Salvar Alterações</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Cores Principais (Tricolores)</h3>
+                    </div>
+                    <div class="color-group">
+                        <div class="color-item">
+                            <label>Verde Principal</label>
+                            <input type="color" class="form-control" id="color-green" value="#00a651" onchange="updateColorPreview('green', this.value)">
+                            <div class="color-preview" id="preview-green" style="background: #00a651;"></div>
+                        </div>
+                        <div class="color-item">
+                            <label>Dourado/Amarelo</label>
+                            <input type="color" class="form-control" id="color-gold" value="#d4af37" onchange="updateColorPreview('gold', this.value)">
+                            <div class="color-preview" id="preview-gold" style="background: #d4af37;"></div>
+                        </div>
+                        <div class="color-item">
+                            <label>Azul</label>
+                            <input type="color" class="form-control" id="color-blue" value="#003399" onchange="updateColorPreview('blue', this.value)">
+                            <div class="color-preview" id="preview-blue" style="background: #003399;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Cores de Fundo</h3>
+                    </div>
+                    <div class="color-group">
+                        <div class="color-item">
+                            <label>Fundo Principal</label>
+                            <input type="color" class="form-control" id="color-bg" value="#ffffff" onchange="updateColorPreview('bg', this.value)">
+                            <div class="color-preview" id="preview-bg" style="background: #ffffff;"></div>
+                        </div>
+                        <div class="color-item">
+                            <label>Fundo Secundário</label>
+                            <input type="color" class="form-control" id="color-bg-secondary" value="#f5f5f5" onchange="updateColorPreview('bg-secondary', this.value)">
+                            <div class="color-preview" id="preview-bg-secondary" style="background: #f5f5f5;"></div>
+                        </div>
+                        <div class="color-item">
+                            <label>Cor dos Cards</label>
+                            <input type="color" class="form-control" id="color-card" value="#ffffff" onchange="updateColorPreview('card', this.value)">
+                            <div class="color-preview" id="preview-card" style="background: #ffffff;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Cores de Texto</h3>
+                    </div>
+                    <div class="color-group">
+                        <div class="color-item">
+                            <label>Texto Principal</label>
+                            <input type="color" class="form-control" id="color-text" value="#1a1a1a" onchange="updateColorPreview('text', this.value)">
+                            <div class="color-preview" id="preview-text" style="background: #1a1a1a;"></div>
+                        </div>
+                        <div class="color-item">
+                            <label>Texto Secundário</label>
+                            <input type="color" class="form-control" id="color-text-secondary" value="#616161" onchange="updateColorPreview('text-secondary', this.value)">
+                            <div class="color-preview" id="preview-text-secondary" style="background: #616161;"></div>
+                        </div>
+                        <div class="color-item">
+                            <label>Texto Muted</label>
+                            <input type="color" class="form-control" id="color-text-muted" value="#9e9e9e" onchange="updateColorPreview('text-muted', this.value)">
+                            <div class="color-preview" id="preview-text-muted" style="background: #9e9e9e;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Opacidade das Bordas</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>Opacidade das bordas tricolores <span>(0-100%)</span></label>
+                        <input type="range" class="form-control" id="border-opacity" min="0" max="100" value="50" oninput="document.getElementById('opacity-value').textContent = this.value + '%'">
+                        <p style="text-align: center; margin-top: 0.5rem; font-weight: 600;" id="opacity-value">50%</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fontes -->
+            <div id="fontes" class="tab-content">
+                <div class="page-header">
+                    <h2>Fontes do Site</h2>
+                    <button class="btn btn-primary" onclick="saveConfig()"><i class="fas fa-save"></i> Salvar Alterações</button>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Fonte Principal</h3>
+                        </div>
+                        <div class="form-group">
+                            <label>Escolha a fonte principal</label>
+                            <select class="form-control" id="font-primary" onchange="updateFontPreview()">
+                                <option value="Inter">Inter</option>
+                                <option value="Roboto">Roboto</option>
+                                <option value="Open Sans">Open Sans</option>
+                                <option value="Lato">Lato</option>
+                                <option value="Montserrat">Montserrat</option>
+                                <option value="Poppins">Poppins</option>
+                                <option value="Nunito">Nunito</option>
+                                <option value="Source Sans Pro">Source Sans Pro</option>
+                            </select>
+                        </div>
+                        <div class="font-preview" id="font-primary-preview" style="font-family: 'Inter', sans-serif;">
+                            <strong>Preview:</strong> Documentos & Serviços Portugal
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Fonte de Títulos</h3>
+                        </div>
+                        <div class="form-group">
+                            <label>Escolha a fonte para títulos</label>
+                            <select class="form-control" id="font-display" onchange="updateFontPreview()">
+                                <option value="Space Grotesk">Space Grotesk</option>
+                                <option value="Inter">Inter</option>
+                                <option value="Roboto">Roboto</option>
+                                <option value="Montserrat">Montserrat</option>
+                                <option value="Poppins">Poppins</option>
+                                <option value="Oswald">Oswald</option>
+                                <option value="Raleway">Raleway</option>
+                                <option value="Bebas Neue">Bebas Neue</option>
+                            </select>
+                        </div>
+                        <div class="font-preview" id="font-display-preview" style="font-family: 'Space Grotesk', sans-serif;">
+                            <strong>Preview:</strong> DOCUMENTOS & SERVIÇOS
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Tamanhos de Fonte</h3>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Título Principal (Hero) <span>(em rem)</span></label>
+                            <input type="number" class="form-control" id="font-size-hero" value="4" min="1" max="10" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>Título de Seção <span>(em rem)</span></label>
+                            <input type="number" class="form-control" id="font-size-section" value="2.5" min="1" max="5" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>Texto Normal <span>(em rem)</span></label>
+                            <input type="number" class="form-control" id="font-size-normal" value="1" min="0.5" max="2" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>Texto Pequeno <span>(em rem)</span></label>
+                            <input type="number" class="form-control" id="font-size-small" value="0.9" min="0.5" max="1.5" step="0.1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Templates -->
+            <div id="templates" class="tab-content">
+                <div class="page-header">
+                    <h2>Templates</h2>
+                    <button class="btn btn-primary" onclick="saveConfig()"><i class="fas fa-save"></i> Salvar Alterações</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Escolha um Template</h3>
+                    </div>
+                    <div class="template-grid">
+                        <div class="template-card selected" onclick="selectTemplate(this, 'default')">
+                            <div class="template-preview" style="background: linear-gradient(135deg, #00a651, #d4af37, #003399);">
+                                <i class="fas fa-check-circle" style="color: white; font-size: 3rem;"></i>
+                            </div>
+                            <h4>Padrão Tricolor</h4>
+                            <p style="font-size: 0.85rem; color: var(--admin-muted);">Verde, Dourado e Azul</p>
+                        </div>
+
+                        <div class="template-card" onclick="selectTemplate(this, 'modern')">
+                            <div class="template-preview" style="background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);">
+                                <i class="fas fa-rocket" style="color: white; font-size: 3rem;"></i>
+                            </div>
+                            <h4>Moderno</h4>
+                            <p style="font-size: 0.85rem; color: var(--admin-muted);">Roxo e Rosa</p>
+                        </div>
+
+                        <div class="template-card" onclick="selectTemplate(this, 'dark')">
+                            <div class="template-preview" style="background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);">
+                                <i class="fas fa-moon" style="color: white; font-size: 3rem;"></i>
+                            </div>
+                            <h4>Dark Mode</h4>
+                            <p style="font-size: 0.85rem; color: var(--admin-muted);">Tema Escuro</p>
+                        </div>
+
+                        <div class="template-card" onclick="selectTemplate(this, 'minimal')">
+                            <div class="template-preview" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef, #dee2e6);">
+                                <i class="fas fa-minus" style="color: #495057; font-size: 3rem;"></i>
+                            </div>
+                            <h4>Minimalista</h4>
+                            <p style="font-size: 0.85rem; color: var(--admin-muted);">Cores Neutras</p>
+                        </div>
+
+                        <div class="template-card" onclick="selectTemplate(this, 'ocean')">
+                            <div class="template-preview" style="background: linear-gradient(135deg, #0077b6, #00b4d8, #90e0ef);">
+                                <i class="fas fa-water" style="color: white; font-size: 3rem;"></i>
+                            </div>
+                            <h4>Oceano</h4>
+                            <p style="font-size: 0.85rem; color: var(--admin-muted);">Tons de Azul</p>
+                        </div>
+
+                        <div class="template-card" onclick="selectTemplate(this, 'sunset')">
+                            <div class="template-preview" style="background: linear-gradient(135deg, #f77f00, #fcbf49, #eae2b7);">
+                                <i class="fas fa-sun" style="color: white; font-size: 3rem;"></i>
+                            </div>
+                            <h4>Pôr do Sol</h4>
+                            <p style="font-size: 0.85rem; color: var(--admin-muted);">Laranja e Amarelo</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Configurações do Layout</h3>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Bordas Arredondadas <span>(em px)</span></label>
+                            <input type="number" class="form-control" id="border-radius" value="20" min="0" max="50">
+                        </div>
+                        <div class="form-group">
+                            <label>Espaçamento entre Cards <span>(em rem)</span></label>
+                            <input type="number" class="form-control" id="card-gap" value="1.5" min="0.5" max="5" step="0.5">
+                        </div>
+                        <div class="form-group">
+                            <label>Sombra dos Cards</label>
+                            <select class="form-control" id="card-shadow">
+                                <option value="none">Nenhuma</option>
+                                <option value="sm" selected>Pequena</option>
+                                <option value="md">Média</option>
+                                <option value="lg">Grande</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Animações</label>
+                            <div class="toggle-switch">
+                                <label class="switch">
+                                    <input type="checkbox" id="enable-animations" checked>
+                                    <span class="slider"></span>
+                                </label>
+                                <span>Ativar animações</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conteúdo -->
+            <div id="conteudo" class="tab-content">
+                <div class="page-header">
+                    <h2>Conteúdo do Site</h2>
+                    <button class="btn btn-primary" onclick="saveConfig()"><i class="fas fa-save"></i> Salvar Alterações</button>
+                </div>
+
+                <!-- Hero Section -->
+                <div class="section-editor">
+                    <div class="section-header-editor">
+                        <h3 class="section-title-editor"><i class="fas fa-star"></i> Seção Hero (Início)</h3>
+                        <div class="toggle-switch">
+                            <label class="switch">
+                                <input type="checkbox" id="hero-enabled" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Título Principal</label>
+                            <input type="text" class="form-control" id="hero-title" value="Documentos & Serviços Portugal">
+                        </div>
+                        <div class="form-group">
+                            <label>Texto Destacado <span>(parte colorida)</span></label>
+                            <input type="text" class="form-control" id="hero-highlight" value="Portugal">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Subtítulo</label>
+                        <textarea class="form-control" id="hero-subtitle">Soluções integradas para imigrantes: documentação, contabilidade, mão de obra e consultoria imobiliária em um só lugar.</textarea>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Texto do Botão Principal</label>
+                            <input type="text" class="form-control" id="hero-btn-primary" value="Iniciar Conversa">
+                        </div>
+                        <div class="form-group">
+                            <label>Texto do Botão Secundário</label>
+                            <input type="text" class="form-control" id="hero-btn-secondary" value="Explorar Serviços">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Mensagem do Assistente Virtual</label>
+                        <textarea class="form-control" id="ai-message">Olá! 👋 Posso ajudar com NIF, NISS, Utente, contabilidade, mão de obra ou imóveis. O que você precisa?</textarea>
+                    </div>
+                </div>
+
+                <!-- Documentos Section -->
+                <div class="section-editor">
+                    <div class="section-header-editor">
+                        <h3 class="section-title-editor"><i class="fas fa-file-alt"></i> Seção Documentos</h3>
+                        <div class="toggle-switch">
+                            <label class="switch">
+                                <input type="checkbox" id="docs-enabled" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Título da Seção</label>
+                            <input type="text" class="form-control" id="docs-title" value="Documentos Essenciais">
+                        </div>
+                        <div class="form-group">
+                            <label>Subtítulo</label>
+                            <input type="text" class="form-control" id="docs-subtitle" value="Base legal para sua vida em Portugal">
+                        </div>
+                    </div>
+
+                    <!-- Card 1: NIF -->
+                    <div class="card" style="margin-top: 1rem;">
+                        <h4 style="margin-bottom: 1rem;"><i class="fas fa-file-invoice-dollar" style="color: var(--admin-primary)"></i> Card NIF</h4>
+                        <div class="form-group">
+                            <label>Título</label>
+                            <input type="text" class="form-control" id="nif-title" value="NIF">
+                        </div>
+                        <div class="form-group">
+                            <label>Descrição</label>
+                            <textarea class="form-control" id="nif-desc">Número de Identificação Fiscal obrigatório para trabalhar, contratos e obrigações tributárias.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Itens da Lista <span>(um por linha)</span></label>
+                            <textarea class="form-control" id="nif-items">Agendamento: 217 206 707
+Documentos: Passaporte + morada
+Gratuito no Portal das Finanças</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: NISS -->
+                    <div class="card" style="margin-top: 1rem;">
+                        <h4 style="margin-bottom: 1rem;"><i class="fas fa-shield-alt" style="color: var(--admin-secondary)"></i> Card NISS</h4>
+                        <div class="form-group">
+                            <label>Título</label>
+                            <input type="text" class="form-control" id="niss-title" value="NISS">
+                        </div>
+                        <div class="form-group">
+                            <label>Descrição</label>
+                            <textarea class="form-control" id="niss-desc">Número da Segurança Social para acesso a direitos e cumprimento de deveres contributivos.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Itens da Lista <span>(um por linha)</span></label>
+                            <textarea class="form-control" id="niss-items">Pedido 100% online
+NISS na Hora disponível
+Tel: 210 548 888</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: SNS -->
+                    <div class="card" style="margin-top: 1rem;">
+                        <h4 style="margin-bottom: 1rem;"><i class="fas fa-heartbeat" style="color: var(--admin-accent)"></i> Card SNS Utente</h4>
+                        <div class="form-group">
+                            <label>Título</label>
+                            <input type="text" class="form-control" id="sns-title" value="SNS Utente">
+                        </div>
+                        <div class="form-group">
+                            <label>Descrição</label>
+                            <textarea class="form-control" id="sns-desc">Acesso ao Serviço Nacional de Saúde com taxas reduzidas em consultas e medicamentos.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Itens da Lista <span>(um por linha)</span></label>
+                            <textarea class="form-control" id="sns-items">Centro de Saúde da sua área
+App SNS 24 disponível
+PB4 para brasileiros</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Serviços Section -->
+                <div class="section-editor">
+                    <div class="section-header-editor">
+                        <h3 class="section-title-editor"><i class="fas fa-briefcase"></i> Seção Serviços</h3>
+                        <div class="toggle-switch">
+                            <label class="switch">
+                                <input type="checkbox" id="services-enabled" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Título da Seção</label>
+                            <input type="text" class="form-control" id="services-title" value="Nossos Serviços">
+                        </div>
+                        <div class="form-group">
+                            <label>Subtítulo</label>
+                            <input type="text" class="form-control" id="services-subtitle" value="Soluções completas para você">
+                        </div>
+                    </div>
+
+                    <!-- Contabilidade -->
+                    <div class="card" style="margin-top: 1rem;">
+                        <h4 style="margin-bottom: 1rem;"><i class="fas fa-calculator"></i> Contabilidade</h4>
+                        <div class="form-group">
+                            <label>Descrição</label>
+                            <textarea class="form-control" id="accounting-desc">Gestão fiscal completa para trabalhadores independentes e empresas.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Serviços <span>(um por linha)</span></label>
+                            <textarea class="form-control" id="accounting-items">Abertura de atividade
+Declarações IRS/IVA
+Faturação eletrônica
+Representação fiscal</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Mão de Obra -->
+                    <div class="card" style="margin-top: 1rem;">
+                        <h4 style="margin-bottom: 1rem;"><i class="fas fa-hard-hat"></i> Mão de Obra</h4>
+                        <div class="form-group">
+                            <label>Descrição</label>
+                            <textarea class="form-control" id="labor-desc">Recrutamento e prestação de serviços para diversos setores.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Serviços <span>(um por linha)</span></label>
+                            <textarea class="form-control" id="labor-items">Construção civil
+Serviços domésticos
+Jardinagem e manutenção
+Regularização de trabalhadores</textarea>
+                        </div>
+                    </div>
+
+                    <!-- Imóveis -->
+                    <div class="card" style="margin-top: 1rem;">
+                        <h4 style="margin-bottom: 1rem;"><i class="fas fa-home"></i> Imóveis</h4>
+                        <div class="form-group">
+                            <label>Descrição</label>
+                            <textarea class="form-control" id="realestate-desc">Consultoria completa para arrendamento e compra de imóveis.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Serviços <span>(um por linha)</span></label>
+                            <textarea class="form-control" id="realestate-items">Pesquisa de imóveis
+Análise de contratos
+Registo na Junta de Freguesia
+Comprovativo de morada</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contato Section -->
+                <div class="section-editor">
+                    <div class="section-header-editor">
+                        <h3 class="section-title-editor"><i class="fas fa-address-card"></i> Seção Contato</h3>
+                        <div class="toggle-switch">
+                            <label class="switch">
+                                <input type="checkbox" id="contact-enabled" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Título da Seção</label>
+                            <input type="text" class="form-control" id="contact-title" value="Fale Conosco">
+                        </div>
+                        <div class="form-group">
+                            <label>Subtítulo</label>
+                            <input type="text" class="form-control" id="contact-subtitle" value="Canais de atendimento">
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>WhatsApp</label>
+                            <input type="text" class="form-control" id="contact-whatsapp" value="+351 936 907 137">
+                        </div>
+                        <div class="form-group">
+                            <label>E-mail</label>
+                            <input type="email" class="form-control" id="contact-email" value="eurozucas@gmail.com">
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Texto Atendimento</label>
+                            <input type="text" class="form-control" id="contact-location" value="Portugal & Brasil">
+                        </div>
+                        <div class="form-group">
+                            <label>Subtexto</label>
+                            <input type="text" class="form-control" id="contact-subtext" value="100% Online">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="section-editor">
+                    <div class="section-header-editor">
+                        <h3 class="section-title-editor"><i class="fas fa-shoe-prints"></i> Rodapé (Footer)</h3>
+                        <div class="toggle-switch">
+                            <label class="switch">
+                                <input type="checkbox" id="footer-enabled" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição da Empresa</label>
+                        <textarea class="form-control" id="footer-desc">Soluções integradas para imigrantes em Portugal desde 2020. Documentação, contabilidade, mão de obra e imóveis.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Texto de Copyright</label>
+                        <input type="text" class="form-control" id="footer-copyright" value="Todos direitos 2026 © eurozuca.com">
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Facebook URL</label>
+                            <input type="url" class="form-control" id="social-facebook" value="https://www.facebook.com/profile.php?id=100094639210572">
+                        </div>
+                        <div class="form-group">
+                            <label>Instagram URL</label>
+                            <input type="url" class="form-control" id="social-instagram" value="https://www.instagram.com/eurozuca/">
+                        </div>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>YouTube URL</label>
+                            <input type="url" class="form-control" id="social-youtube" value="https://www.youtube.com/@eurozucas">
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp URL</label>
+                            <input type="url" class="form-control" id="social-whatsapp" value="https://wa.me/351936907137">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEO -->
+            <div id="seo" class="tab-content">
+                <div class="page-header">
+                    <h2>Configurações SEO</h2>
+                    <button class="btn btn-primary" onclick="saveConfig()"><i class="fas fa-save"></i> Salvar Alterações</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Meta Tags</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>Título da Página <span>(title)</span></label>
+                        <input type="text" class="form-control" id="meta-title" value="eurozuca.com - Portugal 2026">
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição <span>(meta description)</span></label>
+                        <textarea class="form-control" id="meta-description">Soluções integradas para imigrantes em Portugal. Documentação, contabilidade, mão de obra e imóveis.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Palavras-chave <span>(meta keywords, separadas por vírgula)</span></label>
+                        <input type="text" class="form-control" id="meta-keywords" value="Portugal, imigrantes, NIF, NISS, documentos, contabilidade, imóveis">
+                    </div>
+                    <div class="form-group">
+                        <label>Autor</label>
+                        <input type="text" class="form-control" id="meta-author" value="eurozuca.com">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Open Graph (Redes Sociais)</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>OG Título</label>
+                        <input type="text" class="form-control" id="og-title" value="eurozuca.com - Documentos & Serviços Portugal">
+                    </div>
+                    <div class="form-group">
+                        <label>OG Descrição</label>
+                        <textarea class="form-control" id="og-description">Soluções integradas para imigrantes em Portugal desde 2020.</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>OG Imagem URL</label>
+                        <input type="url" class="form-control" id="og-image" placeholder="https://seusite.com/imagem.jpg">
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Favicon</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>URL do Favicon</label>
+                        <input type="url" class="form-control" id="favicon-url" placeholder="https://seusite.com/favicon.ico">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exportar -->
+            <div id="exportar" class="tab-content">
+                <div class="page-header">
+                    <h2>Exportar Site</h2>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Gerar Código HTML</h3>
+                    </div>
+                    <p style="margin-bottom: 1rem; color: var(--admin-muted);">Clique no botão abaixo para gerar o código HTML completo do seu site com todas as configurações aplicadas.</p>
+                    <button class="btn btn-primary" onclick="generateHTML()" style="margin-bottom: 1rem;">
+                        <i class="fas fa-code"></i> Gerar Código
+                    </button>
+                    <div class="code-export" id="generated-code" style="display: none;">
+                        <pre id="code-content"></pre>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Download do Site</h3>
+                    </div>
+                    <p style="margin-bottom: 1rem; color: var(--admin-muted);">Baixe o arquivo HTML completo para hospedar em qualquer servidor.</p>
+                    <button class="btn btn-secondary" onclick="downloadHTML()">
+                        <i class="fas fa-download"></i> Baixar index.html
+                    </button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Salvar Configuração</h3>
+                    </div>
+                    <p style="margin-bottom: 1rem; color: var(--admin-muted);">Salve suas configurações para editar depois.</p>
+                    <button class="btn btn-outline" onclick="exportConfig()">
+                        <i class="fas fa-file-export"></i> Exportar Configuração (JSON)
+                    </button>
+                    <div style="margin-top: 1rem;">
+                        <label>Importar Configuração:</label>
+                        <input type="file" class="form-control" id="import-file" accept=".json" onchange="importConfig(this)">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Preview Toggle Button -->
+    <button class="preview-toggle" onclick="togglePreview()" title="Pré-visualizar">
+        <i class="fas fa-eye"></i>
+    </button>
+
+    <!-- Preview Panel -->
+    <div class="preview-panel" id="preview-panel" style="display: none;">
+        <div class="preview-header">
+            <h3><i class="fas fa-eye"></i> Pré-visualização</h3>
+            <button class="btn btn-outline" onclick="togglePreview()" style="padding: 0.5rem;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <iframe class="preview-frame" id="preview-frame" src="index.html"></iframe>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message">Configuração salva!</span>
+    </div>
+
+    <script>
+        // Configuração padrão
+        const defaultConfig = {
+            colors: {
+                green: '#00a651',
+                gold: '#d4af37',
+                blue: '#003399',
+                bg: '#ffffff',
+                bgSecondary: '#f5f5f5',
+                card: '#ffffff',
+                text: '#1a1a1a',
+                textSecondary: '#616161',
+                textMuted: '#9e9e9e'
+            },
+            fonts: {
+                primary: 'Inter',
+                display: 'Space Grotesk',
+                sizes: {
+                    hero: 4,
+                    section: 2.5,
+                    normal: 1,
+                    small: 0.9
+                }
+            },
+            template: 'default',
+            layout: {
+                borderRadius: 20,
+                cardGap: 1.5,
+                cardShadow: 'sm',
+                animations: true
+            },
+            borderOpacity: 50,
+            content: {},
+            seo: {},
+            social: {}
+        };
+
+        let currentConfig = { ...defaultConfig };
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            loadConfig();
+            updateAllPreviews();
+        });
+
+        // Navegação entre tabs
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`a[href="#${tabId}"]`).classList.add('active');
+        }
+
+        // Atualizar preview de cor
+        function updateColorPreview(colorName, value) {
+            document.getElementById(`preview-${colorName}`).style.background = value;
+        }
+
+        // Atualizar preview de fonte
+        function updateFontPreview() {
+            const primaryFont = document.getElementById('font-primary').value;
+            const displayFont = document.getElementById('font-display').value;
+            
+            document.getElementById('font-primary-preview').style.fontFamily = `'${primaryFont}', sans-serif`;
+            document.getElementById('font-display-preview').style.fontFamily = `'${displayFont}', sans-serif`;
+        }
+
+        // Selecionar template
+        function selectTemplate(element, templateName) {
+            document.querySelectorAll('.template-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            currentConfig.template = templateName;
+            
+            // Aplicar cores do template
+            const templates = {
+                'default': { green: '#00a651', gold: '#d4af37', blue: '#003399' },
+                'modern': { green: '#6366f1', gold: '#8b5cf6', blue: '#ec4899' },
+                'dark': { green: '#1a1a2e', gold: '#16213e', blue: '#0f3460' },
+                'minimal': { green: '#f8f9fa', gold: '#e9ecef', blue: '#dee2e6' },
+                'ocean': { green: '#0077b6', gold: '#00b4d8', blue: '#90e0ef' },
+                'sunset': { green: '#f77f00', gold: '#fcbf49', blue: '#eae2b7' }
+            };
+            
+            if (templates[templateName]) {
+                const t = templates[templateName];
+                document.getElementById('color-green').value = t.green;
+                document.getElementById('color-gold').value = t.gold;
+                document.getElementById('color-blue').value = t.blue;
+                updateColorPreview('green', t.green);
+                updateColorPreview('gold', t.gold);
+                updateColorPreview('blue', t.blue);
+            }
+        }
+
+        // Salvar configuração
+        function saveConfig() {
+            // Coletar todas as configurações
+            currentConfig.colors = {
+                green: document.getElementById('color-green').value,
+                gold: document.getElementById('color-gold').value,
+                blue: document.getElementById('color-blue').value,
+                bg: document.getElementById('color-bg').value,
+                bgSecondary: document.getElementById('color-bg-secondary').value,
+                card: document.getElementById('color-card').value,
+                text: document.getElementById('color-text').value,
+                textSecondary: document.getElementById('color-text-secondary').value,
+                textMuted: document.getElementById('color-text-muted').value
+            };
+            
+            currentConfig.fonts = {
+                primary: document.getElementById('font-primary').value,
+                display: document.getElementById('font-display').value,
+                sizes: {
+                    hero: parseFloat(document.getElementById('font-size-hero').value),
+                    section: parseFloat(document.getElementById('font-size-section').value),
+                    normal: parseFloat(document.getElementById('font-size-normal').value),
+                    small: parseFloat(document.getElementById('font-size-small').value)
+                }
+            };
+            
+            currentConfig.layout = {
+                borderRadius: parseInt(document.getElementById('border-radius').value),
+                cardGap: parseFloat(document.getElementById('card-gap').value),
+                cardShadow: document.getElementById('card-shadow').value,
+                animations: document.getElementById('enable-animations').checked
+            };
+            
+            currentConfig.borderOpacity = parseInt(document.getElementById('border-opacity').value);
+            
+            // Salvar no localStorage
+            localStorage.setItem('eurozucaConfig', JSON.stringify(currentConfig));
+            
+            showToast('Configuração salva com sucesso!', 'success');
+            updatePreview();
+        }
+
+        // Carregar configuração
+        function loadConfig() {
+            const saved = localStorage.getItem('eurozucaConfig');
+            if (saved) {
+                currentConfig = JSON.parse(saved);
+                applyConfigToForm();
+            }
+        }
+
+        // Aplicar configuração ao formulário
+        function applyConfigToForm() {
+            // Cores
+            if (currentConfig.colors) {
+                document.getElementById('color-green').value = currentConfig.colors.green;
+                document.getElementById('color-gold').value = currentConfig.colors.gold;
+                document.getElementById('color-blue').value = currentConfig.colors.blue;
+                document.getElementById('color-bg').value = currentConfig.colors.bg;
+                document.getElementById('color-bg-secondary').value = currentConfig.colors.bgSecondary;
+                document.getElementById('color-card').value = currentConfig.colors.card;
+                document.getElementById('color-text').value = currentConfig.colors.text;
+                document.getElementById('color-text-secondary').value = currentConfig.colors.textSecondary;
+                document.getElementById('color-text-muted').value = currentConfig.colors.textMuted;
+                
+                Object.keys(currentConfig.colors).forEach(key => {
+                    updateColorPreview(key, currentConfig.colors[key]);
+                });
+            }
+            
+            // Fontes
+            if (currentConfig.fonts) {
+                document.getElementById('font-primary').value = currentConfig.fonts.primary;
+                document.getElementById('font-display').value = currentConfig.fonts.display;
+                if (currentConfig.fonts.sizes) {
+                    document.getElementById('font-size-hero').value = currentConfig.fonts.sizes.hero;
+                    document.getElementById('font-size-section').value = currentConfig.fonts.sizes.section;
+                    document.getElementById('font-size-normal').value = currentConfig.fonts.sizes.normal;
+                    document.getElementById('font-size-small').value = currentConfig.fonts.sizes.small;
+                }
+            }
+            
+            // Layout
+            if (currentConfig.layout) {
+                document.getElementById('border-radius').value = currentConfig.layout.borderRadius;
+                document.getElementById('card-gap').value = currentConfig.layout.cardGap;
+                document.getElementById('card-shadow').value = currentConfig.layout.cardShadow;
+                document.getElementById('enable-animations').checked = currentConfig.layout.animations;
+            }
+            
+            // Border opacity
+            if (currentConfig.borderOpacity) {
+                document.getElementById('border-opacity').value = currentConfig.borderOpacity;
+                document.getElementById('opacity-value').textContent = currentConfig.borderOpacity + '%';
+            }
+        }
+
+        // Resetar configuração
+        function resetConfig() {
+            if (confirm('Tem certeza que deseja resetar todas as configurações?')) {
+                currentConfig = { ...defaultConfig };
+                localStorage.removeItem('eurozucaConfig');
+                applyConfigToForm();
+                showToast('Configuração resetada!', 'success');
+            }
+        }
+
+        // Mostrar toast
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            
+            toast.className = 'toast ' + type;
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Toggle preview
+        function togglePreview() {
+            const panel = document.getElementById('preview-panel');
+            if (panel.style.display === 'none') {
+                panel.style.display = 'flex';
+                updatePreview();
+            } else {
+                panel.style.display = 'none';
+            }
+        }
+
+        function openPreview() {
+            window.open('index.html', '_blank');
+        }
+
+        // Atualizar preview
+        function updatePreview() {
+            const frame = document.getElementById('preview-frame');
+            frame.src = frame.src;
+        }
+
+        // Gerar HTML
+        function generateHTML() {
+            saveConfig();
+            
+            // Aqui você geraria o HTML completo com as configurações
+            // Por enquanto, vamos mostrar uma mensagem
+            const codeDiv = document.getElementById('generated-code');
+            const codeContent = document.getElementById('code-content');
+            
+            codeDiv.style.display = 'block';
+            codeContent.textContent = 'Código gerado com sucesso! Clique em "Baixar index.html" para obter o arquivo.';
+            
+            showToast('Código gerado!', 'success');
+        }
+
+        // Download HTML
+        function downloadHTML() {
+            saveConfig();
+            
+            // Criar o HTML com as configurações
+            const html = generateCompleteHTML();
+            
+            const blob = new Blob([html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'index.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast('Download iniciado!', 'success');
+        }
+
+        // Exportar configuração
+        function exportConfig() {
+            saveConfig();
+            const configJson = JSON.stringify(currentConfig, null, 2);
+            const blob = new Blob([configJson], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'eurozuca-config.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast('Configuração exportada!', 'success');
+        }
+
+        // Importar configuração
+        function importConfig(input) {
+            const file = input.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const config = JSON.parse(e.target.result);
+                    currentConfig = config;
+                    applyConfigToForm();
+                    localStorage.setItem('eurozucaConfig', JSON.stringify(currentConfig));
+                    showToast('Configuração importada!', 'success');
+                } catch (err) {
+                    showToast('Erro ao importar configuração!', 'error');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Gerar HTML completo (função simplificada)
+        function generateCompleteHTML() {
+            const c = currentConfig;
+            return `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${document.getElementById('meta-title').value}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=${c.fonts.primary.replace(' ', '+')}:wght@300;400;500;600;700&family=${c.fonts.display.replace(' ', '+')}:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green-primary: ${c.colors.green};
+            --gold-primary: ${c.colors.gold};
+            --blue-primary: ${c.colors.blue};
+            --white-bg: ${c.colors.bg};
+            --gray-50: ${c.colors.bgSecondary};
+            --text-primary: ${c.colors.text};
+            --text-secondary: ${c.colors.textSecondary};
+            --text-muted: ${c.colors.textMuted};
+            --font-primary: '${c.fonts.primary}', sans-serif;
+            --font-display: '${c.fonts.display}', sans-serif;
+        }
+        /* ... resto do CSS com as configurações aplicadas ... */
+    </style>
+</head>
+<body>
+    <!-- Conteúdo do site -->
+</body>
+</html>`;
+        }
+
+        function updateAllPreviews() {
+            updateFontPreview();
+        }
+    </script>
+</body>
+</html>
