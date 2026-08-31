@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>eurozuca.com - Portugal 2026</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --green-primary: #00a651;
+            --green-dark: #008c44;
+            --green-light: #e8f5e9;
+            --green-glow: rgba(0, 166, 81, 0.15);
+            --gold-primary: #d4af37;
+            --gold-dark: #b8960c;
+            --gold-light: #faf3d7;
+            --gold-glow: rgba(212, 175, 55, 0.2);
+            --blue-primary: #003399;
+            --blue-light: #e3f2fd;
+            --blue-glow: rgba(0, 51, 153, 0.15);
+            --white-bg: #ffffff;
+            --white-soft: #f8f9fa;
+            --gray-50: #f5f5f5;
+            --gray-100: #e0e0e0;
+            --gray-200: #bdbdbd;
+            --gray-500: #757575;
+            --gray-700: #424242;
+            --gray-900: #212121;
+            --text-primary: #1a1a1a;
+            --text-secondary: #616161;
+            --text-muted: #9e9e9e;
+            --border-light: #e8e8e8;
+            --border-medium: #d0d0d0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+            --gradient-gold: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            --gradient-green: linear-gradient(135deg, #00a651 0%, #00c853 100%);
+            --font-primary: 'Inter', sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--white-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Device Detection */
+        .device-badge {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--white-soft);
+            border: 1px solid var(--border-medium);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            transform: translateY(-10px);
+            animation: fadeInDown 0.5s ease forwards;
+            animation-delay: 1s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        @keyframes fadeInDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .device-badge i {
+            color: var(--gold-primary);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 5%;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-green);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 14px;
+            padding: 2px;
+            background: linear-gradient(135deg, 
+                var(--green-primary) 0%, 
+                var(--gold-primary) 50%, 
+                var(--blue-primary) 100%
+            );
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--green-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: transparent;
+            color: var(--green-primary);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 2px solid transparent;
+            position: relative;
+            background-clip: padding-box;
+        }
+
+        .nav-cta::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50px;
+            padding: 2px;
+            background: linear-gradient(135deg, 
+                var(--green-primary) 0%, 
+                var(--gold-primary) 50%, 
+                var(--blue-primary) 100%
+            );
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .nav-cta:hover::before {
+            opacity: 1;
+        }
+
+        .nav-cta:hover {
+            background: var(--green-primary);
+            color: white;
+            box-shadow: 0 4px 15px var(--green-glow);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 1001;
+            padding: 6rem 2rem 2rem;
+            transition: right 0.3s ease;
+            border-left: 1px solid var(--border-light);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .mobile-menu.open {
+            right: 0;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 1rem 0;
+            font-size: 1.1rem;
+            border-bottom: 1px solid var(--border-light);
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--green-primary);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5% 4rem;
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(180deg, var(--white-bg) 0%, var(--gray-50) 100%);
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+        }
+
+        .hero-content h1 span {
+            color: var(--green-primary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+            line-height: 1.7;
+            max-width: 500px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-main {
+            background: var(--gradient-green);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            background-clip: padding-box;
+        }
+
+        .btn-main::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50px;
+            padding: 2px;
+            background: linear-gradient(135deg, 
+                var(--green-primary) 0%, 
+                var(--gold-primary) 50%, 
+                var(--blue-primary) 100%
+            );
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .btn-main:hover::before {
+            opacity: 1;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--green-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            background-clip: padding-box;
+        }
+
+        .btn-outline::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50px;
+            padding: 2px;
+            background: linear-gradient(135deg, 
+                var(--green-primary) 0%, 
+                var(--gold-primary) 50%, 
+                var(--blue-primary) 100%
+            );
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+
+        .btn-outline:hover::before {
+            opacity: 1;
+        }
+
+        .btn-outline:hover {
+            color: var(--gold-primary);
+        }
+
+        /* AI Chat - COM BORDA TRICOLOR */
+        .ai-panel {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .ai-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 24px;
+            padding: 2px;
+            background: linear-gradient(135deg, 
+                var(--green-primary) 0%, 
+                var(--gold-primary) 50%, 
+                var(--blue-primary) 100%
+            );
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .ai-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--gray-50);
+        }
+
+        .ai-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-green);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .ai-info h3 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+        }
+
+        .ai-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green-primary);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .ai-messages {
+            height: 320px;
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background: white;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 1rem 1.25rem;
+            border-radius: 18px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            animation: messageIn 0.3s ease;
+        }
+
+        @keyframes messageIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.ai {
+            background: var(--green-light);
+            border: 1px solid rgba(0, 166, 81, 0.2);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            color: var(--text-primary);
+        }
+
+        .message.user {
+            background: var(--gold-light);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+            color: var(--text-primary);
+        }
+
+        .ai-input {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            gap: 0.75rem;
+            background: var(--gray-50);
+        }
+
+        .ai-input input {
+            flex: 1;
+            background: white;
+            border: 1px solid var(--border-medium);
+            border-radius: 50px;
+            padding: 0.75rem 1.25rem;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .ai-input input:focus {
+            border-color: var(--green-primary);
+            box-shadow: 0 0 0 3px var(--green-glow);
+        }
+
+        .ai-input input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .ai-input button {
+            width: 44px;
+            height: 44px;
+            background: var(--gradient-green);
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-md);
+            border: 2px solid transparent;
+            position: relative;
+            background-clip: padding-box;
+        }
+
+        .ai-input button::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            padding: 2px;
+            background: linear-gradient(135deg, 
+                var(--green-primary) 0%, 
+                var(--gold-primary) 50%, 
+                var(--blue-primary) 100%
+            );
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .ai-input button:hover::before {
+            opacity: 1;
+        }
+
+        .ai-input button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px var(--green-glow);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            max-width: 1400px;
+            margin: 0 auto 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        .section-title span {
+            color: var(--green-primary);
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .section-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .section-link:hover {
+            color: var(--gold-primary);
+        }
+
+        /* Cards Grid - COM BORDAS TRICOLORES */
+        .cards-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        /* Borda gradiente tricolor */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: linear-gradient(135deg, 
+                var(--green-primary) 0%, 
+                var(--gold-primary) 50%, 
+                var(--blue-primary) 100%
+            );
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        /* Variações de gradiente para cada card */
+        .card:nth-child(3n+1)::before {
+            background: linear-gradient(135deg, 
+                var(--green-primary) 0%, 
+                var(--gold-primary) 60%, 
+                var(--blue-primary) 100%
+            );
+        }
+
+        .card:nth-child(3n+2)::before {
+            background: linear-gradient(135deg, 
+                var(--gold-primary) 0%, 
+                var(--blue-primary) 60%, 
+                var(--green-primary) 100%
+            );
+        }
+
+        .card:nth-child(3n)::before {
+            background: linear-gradient(135deg, 
+                var(--blue-primary) 0%, 
+                var(--green-primary) 60%, 
+                var(--gold-primary) 100%
+            );
+        }
+
+        /* Linha superior colorida */
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                var(--green-primary) 0%, 
+                var(--gold-primary) 50%, 
+                var(--blue-primary) 100%
+            );
+            opacity: 0.5;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover::before {
+            opacity: 0.8;
+        }
+
+        .card:hover::after {
+            transform: scaleX(1);
+            opacity: 0.8;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--green-light);
+            border: 1px solid rgba(0, 166, 81, 0.2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--green-primary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .card:hover .card-icon {
+            background: var(--green-primary);
+            color: white;
+            box-shadow: 0 4px 15px var(--green-glow);
+        }
+
+        .card h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-list {
+            list-style: none;
+        }
+
+        .card-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .card-list li:last-child {
+            border-bottom: none;
+        }
+
+        .card-list li i {
+            color: var(--gold-primary);
+            font-size: 0.7rem;
+            margin-top: 0.4rem;
+        }
+
+        .card-cta {
+            margin-top: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--green-primary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            border: 2px solid transparent;
+            position: relative;
+            background-clip: padding-box;
+        }
+
+        .card-cta::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50px;
+            padding: 2px;
+            background: linear-gradient(135deg, 
+                var(--green-primary) 0%, 
+                var(--gold-primary) 50%, 
+                var(--blue-primary) 100%
+            );
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card-cta:hover::before {
+            opacity: 0.7;
+        }
+
+        .card-cta:hover {
+            gap: 0.75rem;
+            background: rgba(0, 166, 81, 0.05);
+        }
+
+        /* Services Section */
+        .services-section {
+            background: var(--gray-50);
+        }
+
+        .service-card-large {
+            grid-column: span 1;
+        }
+
+        .service-card-large .card-icon {
+            background: var(--gold-light);
+            border-color: rgba(212, 175, 55, 0.2);
+            color: var(--gold-primary);
+        }
+
+        .service-card-large:hover .card-icon {
+            background: var(--gold-primary);
+            color: white;
+            box-shadow: 0 4px 15px var(--gold-glow);
+        }
+
+        /* Laws Section - COM BORDA TRICOLOR */
+        .laws-list {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .law-item {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .law-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            padding: 2px;
+            background: linear-gradient(90deg, 
+                var(--green-primary) 0%, 
+                var(--gold-primary) 50%, 
+                var(--blue-primary) 100%
+            );
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.3;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .law-item:hover::before {
+            opacity: 0.7;
+        }
+
+        .law-item:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .law-content h4 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .law-content h4 i {
+            color: var(--green-primary);
+            font-size: 0.9rem;
+        }
+
+        .law-content p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .law-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .law-item:hover .law-link {
+            color: var(--gold-primary);
+        }
+
+        /* CTA Section - COM BORDA TRICOLOR */
+        .cta-section {
+            text-align: center;
+            padding: 8rem 5%;
+            background: linear-gradient(180deg, var(--gray-50) 0%, var(--white-bg) 100%);
+        }
+
+        .cta-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 32px;
+            padding: 4rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 32px;
+            padding: 3px;
+            background: linear-gradient(135deg, 
+                var(--green-primary) 0%, 
+                var(--gold-primary) 50%, 
+                var(--blue-primary) 100%
+            );
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box h2 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        .cta-box p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Contact Section - COM BORDAS TRICOLORES */
+        .contact-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: linear-gradient(135deg, 
+                var(--green-primary), 
+                var(--gold-primary), 
+                var(--blue-primary)
+            );
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.35;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .contact-card:nth-child(1)::before {
+            background: linear-gradient(135deg, var(--green-primary), var(--gold-primary));
+        }
+
+        .contact-card:nth-child(2)::before {
+            background: linear-gradient(135deg, var(--gold-primary), var(--blue-primary));
+        }
+
+        .contact-card:nth-child(3)::before {
+            background: linear-gradient(135deg, var(--blue-primary), var(--green-primary));
+        }
+
+        .contact-card:hover::before {
+            opacity: 0.7;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .contact-icon-large {
+            width: 64px;
+            height: 64px;
+            background: var(--gold-light);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: var(--gold-primary);
+            font-size: 1.75rem;
+            transition: all 0.3s;
+        }
+
+        .contact-card:hover .contact-icon-large {
+            background: var(--gold-primary);
+            color: white;
+            box-shadow: 0 4px 15px var(--gold-glow);
+        }
+
+        .contact-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .contact-card a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .contact-card:hover a {
+            color: var(--green-primary);
+        }
+
+        .contact-card p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-light);
+            padding: 4rem 5% 2rem;
+            position: relative;
+            z-index: 1;
+            background: var(--gray-50);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 4rem;
+        }
+
+        .footer-column h4 {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .footer-column a {
+            display: block;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 0.4rem 0;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--green-primary);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-sm);
+            border: 2px solid transparent;
+            position: relative;
+            background-clip: padding-box;
+        }
+
+        .social-icons a::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(135deg, 
+                var(--green-primary) 0%, 
+                var(--gold-primary) 50%, 
+                var(--blue-primary) 100%
+            );
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .social-icons a:hover::before {
+            opacity: 1;
+        }
+
+        .social-icons a:hover {
+            background: var(--gold-primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 6rem 5% 3rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.25rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-box {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .cta-box h2 {
+                font-size: 2rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 3rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .law-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Device Badge -->
+    <div class="device-badge" id="deviceBadge">
+        <i class="fas fa-desktop" id="deviceIcon"></i>
+        <span id="deviceText">Desktop</span>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="overlay" id="overlay" onclick="toggleMobileMenu()"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="toggleMobileMenu()">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="#documentos" onclick="toggleMobileMenu()">Documentos</a>
+        <a href="#servicos" onclick="toggleMobileMenu()">Serviços</a>
+        <a href="#leis" onclick="toggleMobileMenu()">Legislação</a>
+        <a href="#contato" onclick="toggleMobileMenu()">Contato</a>
+        <a href="https://wa.me/351936907137" target="_blank" onclick="toggleMobileMenu()">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-compass"></i>
+                </div>
+                eurozuca.com
+            </a>
+            <ul class="nav-links">
+                <li><a href="#documentos">Documentos</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#leis">Legislação</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+            <a href="https://wa.me/351936907137" class="nav-cta" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                <span>Falar Agora</span>
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Documentos & Serviços <span>Portugal</span></h1>
+                <p class="hero-subtitle">
+                    Soluções integradas para imigrantes: documentação, contabilidade, 
+                    mão de obra e consultoria imobiliária em um só lugar.
+                </p>
+                <div class="hero-cta">
+                    <a href="https://wa.me/351936907137" class="btn-main" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        Iniciar Conversa
+                    </a>
+                    <a href="#documentos" class="btn-outline">
+                        Explorar Serviços
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ai-panel">
+                <div class="ai-header">
+                    <div class="ai-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="ai-info">
+                        <h3>Assistente Virtual</h3>
+                        <div class="ai-status">
+                            <span class="status-dot"></span>
+                            Online agora
+                        </div>
+                    </div>
+                </div>
+                <div class="ai-messages" id="chatMessages">
+                    <div class="message ai">
+                        <strong>Olá! 👋</strong><br>
+                        Posso ajudar com NIF, NISS, Utente, contabilidade, 
+                        mão de obra ou imóveis. O que você precisa?
+                    </div>
+                </div>
+                <div class="ai-input">
+                    <input type="text" id="chatInput" placeholder="Digite sua pergunta..." onkeypress="handleKeyPress(event)">
+                    <button onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentos Section -->
+    <section id="documentos">
+        <div class="section-header fade-in">
+            <div>
+                <h2 class="section-title">Documentos <span>Essenciais</span></h2>
+                <p class="section-subtitle">Base legal para sua vida em Portugal</p>
+            </div>
+            <a href="#" class="section-link">
+                Ver todos
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        <div class="cards-grid">
+            <div class="card fade-in">
+                <div class="card-icon">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <h3>NIF</h3>
+                <p>Número de Identificação Fiscal obrigatório para trabalhar, contratos e obrigações tributárias.</p>
+                <ul class="card-list">
+                    <li><i class="fas fa-chevron-right"></i> Agendamento: 217 206 707</li>
+                    <li><i class="fas fa-chevron-right"></i> Documentos: Passaporte + morada</li>
+                    <li><i class="fas fa-chevron-right"></i> Gratuito no Portal das Finanças</li>
+                </ul>
+                <a href="https://wa.me/351936907137" class="card-cta" target="_blank">
+                    Mais informações <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="card fade-in">
+                <div class="card-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>NISS</h3>
+                <p>Número da Segurança Social para acesso a direitos e cumprimento de deveres contributivos.</p>
+                <ul class="card-list">
+                    <li><i class="fas fa-chevron-right"></i> Pedido 100% online</li>
+                    <li><i class="fas fa-chevron-right"></i> NISS na Hora disponível</li>
+                    <li><i class="fas fa-chevron-right"></i> Tel: 210 548 888</li>
+                </ul>
+                <a href="https://wa.me/351936907137" class="card-cta" target="_blank">
+                    Mais informações <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="card fade-in">
+                <div class="card-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h3>SNS Utente</h3>
+                <p>Acesso ao Serviço Nacional de Saúde com taxas reduzidas em consultas e medicamentos.</p>
+                <ul class="card-list">
+                    <li><i class="fas fa-chevron-right"></i> Centro de Saúde da sua área</li>
+                    <li><i class="fas fa-chevron-right"></i> App SNS 24 disponível</li>
+                    <li><i class="fas fa-chevron-right"></i> PB4 para brasileiros</li>
+                </ul>
+                <a href="https://wa.me/351936907137" class="card-cta" target="_blank">
+                    Mais informações <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Serviços Section -->
+    <section id="servicos" class="services-section">
+        <div class="section-header fade-in">
+            <div>
+                <h2 class="section-title">Nossos <span>Serviços</span></h2>
+                <p class="section-subtitle">Soluções completas para você</p>
+            </div>
+        </div>
+        <div class="cards-grid">
+            <div class="card service-card-large fade-in">
+                <div class="card-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3>Contabilidade</h3>
+                <p>Gestão fiscal completa para trabalhadores independentes e empresas.</p>
+                <ul class="card-list">
+                    <li><i class="fas fa-chevron-right"></i> Abertura de atividade</li>
+                    <li><i class="fas fa-chevron-right"></i> Declarações IRS/IVA</li>
+                    <li><i class="fas fa-chevron-right"></i> Faturação eletrônica</li>
+                    <li><i class="fas fa-chevron-right"></i> Representação fiscal</li>
+                </ul>
+                <a href="https://wa.me/351936907137" class="card-cta" target="_blank">
+                    Consultar <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="card service-card-large fade-in">
+                <div class="card-icon">
+                    <i class="fas fa-hard-hat"></i>
+                </div>
+                <h3>Mão de Obra</h3>
+                <p>Recrutamento e prestação de serviços para diversos setores.</p>
+                <ul class="card-list">
+                    <li><i class="fas fa-chevron-right"></i> Construção civil</li>
+                    <li><i class="fas fa-chevron-right"></i> Serviços domésticos</li>
+                    <li><i class="fas fa-chevron-right"></i> Jardinagem e manutenção</li>
+                    <li><i class="fas fa-chevron-right"></i> Regularização de trabalhadores</li>
+                </ul>
+                <a href="https://wa.me/351936907137" class="card-cta" target="_blank">
+                    Consultar <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="card service-card-large fade-in">
+                <div class="card-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3>Imóveis</h3>
+                <p>Consultoria completa para arrendamento e compra de imóveis.</p>
+                <ul class="card-list">
+                    <li><i class="fas fa-chevron-right"></i> Pesquisa de imóveis</li>
+                    <li><i class="fas fa-chevron-right"></i> Análise de contratos</li>
+                    <li><i class="fas fa-chevron-right"></i> Registo na Junta de Freguesia</li>
+                    <li><i class="fas fa-chevron-right"></i> Comprovativo de morada</li>
+                </ul>
+                <a href="https://wa.me/351936907137" class="card-cta" target="_blank">
+                    Consultar <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Legislação Section -->
+    <section id="leis">
+        <div class="section-header fade-in">
+            <div>
+                <h2 class="section-title">Base <span>Legal</span></h2>
+                <p class="section-subtitle">Legislação portuguesa vigente</p>
+            </div>
+        </div>
+        <div class="laws-list">
+            <div class="law-item fade-in">
+                <div class="law-content">
+                    <h4><i class="fas fa-gavel"></i> Lei n.º 110/2009</h4>
+                    <p>Código dos Regimes Contributivos da Segurança Social</p>
+                </div>
+                <a href="https://diariodarepublica.pt" target="_blank" class="law-link">
+                    Consultar <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+            <div class="law-item fade-in">
+                <div class="law-content">
+                    <h4><i class="fas fa-gavel"></i> Decreto Regulamentar n.º 6/2018</h4>
+                    <p>Alteração ao regulamento do Código dos Regimes Contributivos</p>
+                </div>
+                <a href="https://diariodarepublica.pt" target="_blank" class="law-link">
+                    Consultar <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+            <div class="law-item fade-in">
+                <div class="law-content">
+                    <h4><i class="fas fa-gavel"></i> Portaria n.º 254/2016</h4>
+                    <p>Acesso ao SNS por cidadãos estrangeiros</p>
+                </div>
+                <a href="https://diariodarepublica.pt" target="_blank" class="law-link">
+                    Consultar <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+            <div class="law-item fade-in">
+                <div class="law-content">
+                    <h4><i class="fas fa-gavel"></i> Novo Regime do Arrendamento Urbano</h4>
+                    <p>Legislação atualizada sobre arrendamento em Portugal</p>
+                </div>
+                <a href="https://diariodarepublica.pt" target="_blank" class="law-link">
+                    Consultar <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-box fade-in">
+            <div class="cta-content">
+                <h2>Pronto para começar?</h2>
+                <p>Entre em contato agora e receba atendimento personalizado em até 24 horas.</p>
+                <a href="https://wa.me/351936907137" class="btn-main" target="_blank" style="font-size: 1.1rem; padding: 1.25rem 2.5rem;">
+                    <i class="fab fa-whatsapp"></i>
+                    Falar no WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato Section -->
+    <section id="contato">
+        <div class="section-header fade-in">
+            <div>
+                <h2 class="section-title">Fale <span>Conosco</span></h2>
+                <p class="section-subtitle">Canais de atendimento</p>
+            </div>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-card fade-in">
+                <div class="contact-icon-large">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <h3>WhatsApp</h3>
+                <a href="https://wa.me/351936907137" target="_blank">+351 936 907 137</a>
+                <p>Resposta em minutos</p>
+            </div>
+            <div class="contact-card fade-in">
+                <div class="contact-icon-large">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3>E-mail</h3>
+                <a href="mailto:eurozucas@gmail.com">eurozucas@gmail.com</a>
+                <p>Resposta em 24h</p>
+            </div>
+            <div class="contact-card fade-in">
+                <div class="contact-icon-large">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Atendimento</h3>
+                <a href="#">Portugal & Brasil</a>
+                <p>100% Online</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-compass"></i>
+                    </div>
+                    eurozuca.com
+                </a>
+                <p>Soluções integradas para imigrantes em Portugal desde 2020. Documentação, contabilidade, mão de obra e imóveis.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Serviços</h4>
+                    <a href="#documentos">Documentos</a>
+                    <a href="#servicos">Contabilidade</a>
+                    <a href="#servicos">Mão de Obra</a>
+                    <a href="#servicos">Imóveis</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <a href="#leis">Legislação</a>
+                    <a href="#">Privacidade</a>
+                    <a href="#">Termos</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Contato</h4>
+                    <a href="https://wa.me/351936907137" target="_blank">WhatsApp</a>
+                    <a href="mailto:eurozucas@gmail.com">E-mail</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Todos direitos 2026 © eurozuca.com</p>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/profile.php?id=100094639210572" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/eurozuca/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@eurozucas" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://wa.me/351936907137" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Device Detection
+        function detectDevice() {
+            const width = window.innerWidth;
+            const userAgent = navigator.userAgent.toLowerCase();
+            
+            let deviceType, iconClass;
+            
+            if (width <= 768 || /android|webos|iphone|ipod|blackberry|iemobile|opera mini/i.test(userAgent)) {
+                if (width > 768 || /ipad|tablet/i.test(userAgent)) {
+                    deviceType = 'Tablet';
+                    iconClass = 'fa-tablet-alt';
+                } else {
+                    deviceType = 'Mobile';
+                    iconClass = 'fa-mobile-alt';
+                }
+            } else if (width <= 1024) {
+                deviceType = 'Tablet';
+                iconClass = 'fa-tablet-alt';
+            } else {
+                deviceType = 'Desktop';
+                iconClass = 'fa-desktop';
+            }
+            
+            document.getElementById('deviceText').textContent = deviceType;
+            document.getElementById('deviceIcon').className = `fas ${iconClass}`;
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+
+        // Chat functionality
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            input.value = '';
+
+            // Simulate AI response
+            setTimeout(() => {
+                const response = getAIResponse(message);
+                addMessage(response, 'ai');
+            }, 1000);
+        }
+
+        function addMessage(text, sender) {
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = `message ${sender}`;
+            div.innerHTML = text;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function getAIResponse(message) {
+            const lower = message.toLowerCase();
+            
+            if (lower.includes('nif')) {
+                return '<strong>NIF:</strong> Ligue para <strong>217 206 707</strong> (CAT) ou acesse o Portal das Finanças. Precisa de passaporte, visto e comprovativo de morada. É gratuito!';
+            }
+            if (lower.includes('niss')) {
+                return '<strong>NISS:</strong> Faça o pedido online em <strong>seg-social.pt</strong> ou ligue <strong>210 548 888</strong>. Tem também o serviço "NISS na Hora" em centros de atendimento.';
+            }
+            if (lower.includes('utente') || lower.includes('sns') || lower.includes('saude')) {
+                return '<strong>SNS Utente:</strong> Dirija-se ao Centro de Saúde da sua área com passaporte, NIF, comprovativo de morada e autorização de residência. Brasileiros podem usar o PB4.';
+            }
+            if (lower.includes('contabil')) {
+                return '<strong>Contabilidade:</strong> Oferecemos abertura de atividade, declarações fiscais, faturação e representação fiscal. Entre em contato pelo WhatsApp para um orçamento personalizado.';
+            }
+            if (lower.includes('imovel') || lower.includes('casa') || lower.includes('apartamento') || lower.includes('moradia')) {
+                return '<strong>Imóveis:</strong> Ajudamos na pesquisa, análise de contratos, registo na Junta de Freguesia e obtenção de comprovativo de morada. Fale conosco!';
+            }
+            if (lower.includes('trabalho') || lower.includes('mao de obra') || lower.includes('construcao')) {
+                return '<strong>Mão de Obra:</strong> Temos soluções para construção civil, serviços domésticos, jardinagem e regularização de trabalhadores. Consulte disponibilidade.';
+            }
+            
+            return 'Posso ajudar com <strong>NIF, NISS, Utente do SNS, contabilidade, mão de obra ou imóveis</strong>. Qual desses você precisa? Ou prefere falar diretamente no WhatsApp <strong>+351 936 907 137</strong>?';
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Initialize
+        window.addEventListener('load', detectDevice);
+        window.addEventListener('resize', detectDevice);
+    </script>
+</body>
+</html>
